@@ -1,0 +1,5 @@
+*.log
+consul/data*/
+nomad/data*/
+vault/data*/
+.env
