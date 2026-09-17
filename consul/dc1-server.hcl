@@ -1,0 +1,9 @@
+datacenter = "dc1"
+data_dir   = "/consul/data"
+server     = true
+bootstrap_expect = 1
+ui_config { enabled = true }
+client_addr = "0.0.0.0"
+bind_addr   = "0.0.0.0"
+retry_join_wan = ["consul-dc2-server"]
+connect { enabled = true }

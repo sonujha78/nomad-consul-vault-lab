@@ -1,0 +1,26 @@
+networks:
+  hashinet:
+    external: true
+
+services:
+  consul-dc1-server:
+    image: hashicorp/consul:1.19
+    container_name: consul-dc1-server
+    hostname: consul-dc1-server
+    networks: [hashinet]
+    command: agent -config-file=/consul/config/dc1-server.hcl
+    volumes:
+      - ./consul/dc1-server.hcl:/consul/config/dc1-server.hcl:ro
+    ports:
+      - "8500:8500"
+
+  consul-dc2-server:
+    image: hashicorp/consul:1.19
+    container_name: consul-dc2-server
+    hostname: consul-dc2-server
+    networks: [hashinet]
+    command: agent -config-file=/consul/config/dc2-server.hcl
+    volumes:
+      - ./consul/dc2-server.hcl:/consul/config/dc2-server.hcl:ro
+    ports:
+      - "8501:8500"
