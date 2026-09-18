@@ -26,6 +26,7 @@ LEASE_DURATION={{ .LeaseDuration }}
 {{ end }}
 EOT
         destination = "secrets/db-creds.env"
+        change_mode = "noop"
       }
 
       resources {
