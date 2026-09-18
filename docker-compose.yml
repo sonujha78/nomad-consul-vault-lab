@@ -33,6 +33,7 @@ services:
     command: agent -config=/nomad/config/dc1-server.hcl
     volumes:
       - ./nomad/dc1-server.hcl:/nomad/config/dc1-server.hcl:ro
+      - ./nomad/jobs:/nomad/jobs:ro
     cap_add: ["IPC_LOCK"]
     ports:
       - "4646:4646"
@@ -46,6 +47,7 @@ services:
     command: agent -config=/nomad/config/dc2-server.hcl
     volumes:
       - ./nomad/dc2-server.hcl:/nomad/config/dc2-server.hcl:ro
+      - ./nomad/jobs:/nomad/jobs:ro
     cap_add: ["IPC_LOCK"]
     ports:
       - "4647:4646"
