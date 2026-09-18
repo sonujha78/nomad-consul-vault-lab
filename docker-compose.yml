@@ -54,34 +54,38 @@ services:
     depends_on: [consul-dc2-server]
 
   nomad-dc1-client:
-    image: hashicorp/nomad:1.8
+    image: local/nomad-client:1.8.4
     container_name: nomad-dc1-client
     hostname: nomad-dc1-client
     networks: [hashinet]
-    command: agent -config=/nomad/config/dc1-client.hcl
+    command: ["agent", "-config=/nomad/config/dc1-client.hcl"]
     environment:
       - NOMAD_SKIP_DOCKER_IMAGE_WARN=1
     volumes:
       - ./nomad/dc1-client.hcl:/nomad/config/dc1-client.hcl:ro
+      - ./nomad/data-dc1:/nomad/data
       - /opt/cni/bin:/opt/cni/bin:ro
       - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker:/var/run/docker:rshared
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     cgroup: host
     depends_on: [nomad-dc1-server]
 
   nomad-dc2-client:
-    image: hashicorp/nomad:1.8
+    image: local/nomad-client:1.8.4
     container_name: nomad-dc2-client
     hostname: nomad-dc2-client
     networks: [hashinet]
-    command: agent -config=/nomad/config/dc2-client.hcl
+    command: ["agent", "-config=/nomad/config/dc2-client.hcl"]
     environment:
       - NOMAD_SKIP_DOCKER_IMAGE_WARN=1
     volumes:
       - ./nomad/dc2-client.hcl:/nomad/config/dc2-client.hcl:ro
+      - ./nomad/data-dc2:/nomad/data
       - /opt/cni/bin:/opt/cni/bin:ro
       - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker:/var/run/docker:rshared
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     cgroup: host
