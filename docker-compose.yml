@@ -24,3 +24,61 @@ services:
       - ./consul/dc2-server.hcl:/consul/config/dc2-server.hcl:ro
     ports:
       - "8501:8500"
+
+  nomad-dc1-server:
+    image: hashicorp/nomad:1.8
+    container_name: nomad-dc1-server
+    hostname: nomad-dc1-server
+    networks: [hashinet]
+    command: agent -config=/nomad/config/dc1-server.hcl
+    volumes:
+      - ./nomad/dc1-server.hcl:/nomad/config/dc1-server.hcl:ro
+    cap_add: ["IPC_LOCK"]
+    ports:
+      - "4646:4646"
+    depends_on: [consul-dc1-server]
+
+  nomad-dc2-server:
+    image: hashicorp/nomad:1.8
+    container_name: nomad-dc2-server
+    hostname: nomad-dc2-server
+    networks: [hashinet]
+    command: agent -config=/nomad/config/dc2-server.hcl
+    volumes:
+      - ./nomad/dc2-server.hcl:/nomad/config/dc2-server.hcl:ro
+    cap_add: ["IPC_LOCK"]
+    ports:
+      - "4647:4646"
+    depends_on: [consul-dc2-server]
+
+  nomad-dc1-client:
+    image: hashicorp/nomad:1.8
+    container_name: nomad-dc1-client
+    hostname: nomad-dc1-client
+    networks: [hashinet]
+    command: agent -config=/nomad/config/dc1-client.hcl
+    environment:
+      - NOMAD_SKIP_DOCKER_IMAGE_WARN=1
+    volumes:
+      - ./nomad/dc1-client.hcl:/nomad/config/dc1-client.hcl:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    privileged: true
+    cgroup: host
+    depends_on: [nomad-dc1-server]
+
+  nomad-dc2-client:
+    image: hashicorp/nomad:1.8
+    container_name: nomad-dc2-client
+    hostname: nomad-dc2-client
+    networks: [hashinet]
+    command: agent -config=/nomad/config/dc2-client.hcl
+    environment:
+      - NOMAD_SKIP_DOCKER_IMAGE_WARN=1
+    volumes:
+      - ./nomad/dc2-client.hcl:/nomad/config/dc2-client.hcl:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    privileged: true
+    cgroup: host
+    depends_on: [nomad-dc2-server]
