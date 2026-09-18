@@ -3,18 +3,15 @@ data_dir   = "/nomad/data"
 bind_addr  = "0.0.0.0"
 
 client {
-  enabled = true
-  servers = ["nomad-dc1-server:4647"]
+  enabled  = true
+  servers  = ["nomad-dc1-server:4647"]
+  cni_path = "/opt/cni/bin"
 }
 
 plugin "raw_exec" {
   config {
     enabled = true
   }
-}
-
-consul {
-  address = "consul-dc1-server:8500"
 }
 
 plugin "docker" {
@@ -24,4 +21,8 @@ plugin "docker" {
       image = true
     }
   }
+}
+
+consul {
+  address = "consul-dc1-server:8500"
 }

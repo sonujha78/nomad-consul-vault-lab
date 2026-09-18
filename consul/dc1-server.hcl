@@ -7,3 +7,6 @@ client_addr = "0.0.0.0"
 bind_addr   = "0.0.0.0"
 retry_join_wan = ["consul-dc2-server"]
 connect { enabled = true }
+ports {
+  grpc = 8502
+}
