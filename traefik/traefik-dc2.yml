@@ -1,0 +1,20 @@
+entryPoints:
+  web:
+    address: ":80"
+  traefik:
+    address: ":8080"
+
+providers:
+  consulCatalog:
+    endpoint:
+      address: "consul-dc2-server:8500"
+    exposedByDefault: false
+    connectAware: false
+
+api:
+  dashboard: true
+  insecure: true
+
+metrics:
+  prometheus:
+    entryPoint: traefik

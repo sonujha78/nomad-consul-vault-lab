@@ -23,6 +23,12 @@ job "web-dc2" {
         port         = 80
         address_mode = "driver"
         provider     = "consul"
+        tags = [
+          "traefik.enable=true",
+          "traefik.http.routers.web-dc2.rule=PathPrefix(`/dc2`)",
+          "traefik.http.middlewares.strip-dc2.stripprefix.prefixes=/dc2",
+          "traefik.http.routers.web-dc2.middlewares=strip-dc2"
+        ]
 
         check {
           type         = "http"

@@ -115,3 +115,29 @@ services:
       - ./vault/data:/vault/data
     ports:
       - "8300:8200"
+
+  traefik:
+    image: traefik:v3.1
+    container_name: traefik
+    hostname: traefik
+    networks: [hashinet]
+    command: --configFile=/etc/traefik/traefik.yml
+    volumes:
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+    ports:
+      - "8000:80"
+      - "8081:8080"
+    depends_on: [consul-dc1-server]
+
+  traefik-dc2:
+    image: traefik:v3.1
+    container_name: traefik-dc2
+    hostname: traefik-dc2
+    networks: [hashinet]
+    command: --configFile=/etc/traefik/traefik-dc2.yml
+    volumes:
+      - ./traefik/traefik-dc2.yml:/etc/traefik/traefik-dc2.yml:ro
+    ports:
+      - "8001:80"
+      - "8082:8080"
+    depends_on: [consul-dc2-server]
