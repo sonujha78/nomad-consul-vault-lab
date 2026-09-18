@@ -14,6 +14,6 @@ No Kubernetes, no cloud — self-hosted, production-style setup.
 - [x] Consul multi-DC (WAN federated)
 - [x] Nomad multi-DC (mixed workloads)
 - [ ] Vault dynamic secrets (in progress)
-- [ ] Traefik dynamic ingress
+- [x] Traefik dynamic ingress
 - [ ] NATS pub-sub
 - [ ] DC1 failure test
