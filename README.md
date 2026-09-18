@@ -12,7 +12,7 @@ No Kubernetes, no cloud — self-hosted, production-style setup.
 
 ## Status
 - [ ] Consul multi-DC (WAN federated)
-- [ ] Nomad multi-DC (mixed workloads)
+- [x] Nomad multi-DC (mixed workloads)
 - [ ] Vault dynamic secrets
 - [ ] Traefik dynamic ingress
 - [ ] NATS pub-sub
