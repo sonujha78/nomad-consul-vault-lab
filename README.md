@@ -11,9 +11,9 @@ No Kubernetes, no cloud — self-hosted, production-style setup.
 - **NATS** — lightweight pub-sub messaging
 
 ## Status
-- [ ] Consul multi-DC (WAN federated)
+- [x] Consul multi-DC (WAN federated)
 - [x] Nomad multi-DC (mixed workloads)
-- [ ] Vault dynamic secrets
+- [ ] Vault dynamic secrets (in progress)
 - [ ] Traefik dynamic ingress
 - [ ] NATS pub-sub
 - [ ] DC1 failure test
