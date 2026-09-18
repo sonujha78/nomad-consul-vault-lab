@@ -3,3 +3,5 @@ consul/data*/
 nomad/data*/
 vault/data*/
 .env
+vault-init.json
+vault-init.json

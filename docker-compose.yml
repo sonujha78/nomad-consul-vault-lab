@@ -90,3 +90,28 @@ services:
     privileged: true
     cgroup: host
     depends_on: [nomad-dc2-server]
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    hostname: postgres
+    networks: [hashinet]
+    environment:
+      - POSTGRES_USER=vaultadmin
+      - POSTGRES_PASSWORD=supersecretadminpass
+      - POSTGRES_DB=appdb
+    ports:
+      - "5432:5432"
+
+  vault-server:
+    image: hashicorp/vault:1.17
+    container_name: vault-server
+    hostname: vault-server
+    networks: [hashinet]
+    cap_add: ["IPC_LOCK"]
+    command: server
+    volumes:
+      - ./vault/vault-config.hcl:/vault/config/vault-config.hcl:ro
+      - ./vault/data:/vault/data
+    ports:
+      - "8300:8200"
