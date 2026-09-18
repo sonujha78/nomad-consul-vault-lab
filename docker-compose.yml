@@ -141,3 +141,13 @@ services:
       - "8001:80"
       - "8082:8080"
     depends_on: [consul-dc2-server]
+
+  nats:
+    image: nats:2.10-alpine
+    container_name: nats
+    hostname: nats
+    networks: [hashinet]
+    command: "-js -m 8222"
+    ports:
+      - "4222:4222"
+      - "8222:8222"

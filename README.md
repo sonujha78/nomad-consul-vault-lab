@@ -15,5 +15,5 @@ No Kubernetes, no cloud — self-hosted, production-style setup.
 - [x] Nomad multi-DC (mixed workloads)
 - [ ] Vault dynamic secrets (in progress)
 - [x] Traefik dynamic ingress
-- [ ] NATS pub-sub
+- [x] NATS pub-sub
 - [ ] DC1 failure test
