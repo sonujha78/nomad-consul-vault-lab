@@ -7,6 +7,12 @@ server {
   bootstrap_expect = 1
 }
 
+vault {
+  enabled = true
+  address = "http://vault-server:8200"
+  token   = "VAULT_TOKEN_PLACEHOLDER"
+}
+
 consul {
   address = "consul-dc1-server:8500"
 }
